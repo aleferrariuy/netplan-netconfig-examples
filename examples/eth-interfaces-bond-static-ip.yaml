@@ -1,1 +1,22 @@
-
+# Dos interfaces ethernet, con un bond configurado a partir de las mismas, al que se le asigna una dirección IP estática.-
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0: {}
+    enp6s0: {}
+  bonds:
+    bond0:
+      addresses:
+        - 192.2.2.250/24
+      interfaces:
+        - enp3s0
+        - enp6s0
+      parameters:
+        lacp-rate: slow
+        mode: 802.3ad
+        mii-monitor-interval: 1
+        transmit-hash-policy: layer2
+      routes:
+      -   to: default
+          via: 192.2.2.3
