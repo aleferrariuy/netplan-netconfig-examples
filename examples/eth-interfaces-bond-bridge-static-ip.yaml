@@ -1,1 +1,26 @@
-
+# Dos interfaces ethernet, un bond conformado por estas, y un bridge a través del bond.-
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0: {}
+    enp6s0: {}
+  bonds:
+    bond0:
+      interfaces: [enp3s0,enp6s0]
+      parameters:
+        lacp-rate: slow
+        mode: 802.3ad
+        mii-monitor-interval: 1
+        transmit-hash-policy: layer2
+  bridges:
+    br0:
+      interfaces: [bond0]
+      addresses: [192.2.2.250/24]
+      routes:
+      -   to: 0.0.0.0/0
+          via: 192.2.2.3
+      parameters:
+        stp: false
+      nameservers:
+        addresses: [192.1.1.105,8.8.8.8,8.8.4.4]
