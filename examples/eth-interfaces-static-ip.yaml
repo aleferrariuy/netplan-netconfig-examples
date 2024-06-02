@@ -1,0 +1,19 @@
+# Dos interfaces ethernet, en diferentes subredes.-
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0: {
+      addresses:
+        - 192.2.2.250/24
+      routes:
+      -   to: default
+          via: 192.2.2.1        
+    }
+    enp6s0: {
+      addresses:
+        - 192.2.21.10/24
+      routes:
+      -   to: default
+          via: 192.2.21.1
+    }
